@@ -1,5 +1,6 @@
 package com.br.educaoqualidade.model;
 
+
 public class Usuario {
 
     private Long id;
