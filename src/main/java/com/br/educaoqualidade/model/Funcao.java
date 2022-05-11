@@ -2,33 +2,23 @@ package com.br.educaoqualidade.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "curso")
-public class Curso implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "funcao")
+public class Funcao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String authority;
 
-    private String nome;
-
-    @OneToMany(mappedBy = "curso")
-    private List<Oferta> ofertas = new ArrayList<>();
-
-    public Curso() {
+    public Funcao() {
 
     }
 
-    public Curso(Long id, String nome, List<Oferta> ofertas) {
+    public Funcao(Long id, String authority) {
         super();
         this.id = id;
-        this.nome = nome;
-        this.ofertas = ofertas;
+        this.authority = authority;
     }
 
     public Long getId() {
@@ -39,21 +29,14 @@ public class Curso implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
-    public List<Oferta> getOfertas() {
-        return ofertas;
-    }
-
-    public void setOfertas(List<Oferta> ofertas) {
-        this.ofertas = ofertas;
-    }
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -70,7 +53,7 @@ public class Curso implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Curso other = (Curso) obj;
+        Funcao other = (Funcao) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -78,5 +61,4 @@ public class Curso implements Serializable {
             return false;
         return true;
     }
-
 }
