@@ -2,12 +2,17 @@ package com.br.educaoqualidade.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "Instituicao")
-public abstract class Instituicao {
+
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo", length = 1, discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("I")
+public abstract class Instituicao implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +24,14 @@ public abstract class Instituicao {
     private String pais;
     private String tipoInstituicao;
 
-    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<@NotEmpty Endereco> enderecos = new LinkedHashSet<>();
+    //@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 
-    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Endereco> enderecos = new LinkedHashSet<>();
+
+
+    //@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<@NotEmpty Aluno> alunos = new LinkedHashSet<>();
+
 
     public Long getId() {
         return id;
@@ -96,4 +104,13 @@ public abstract class Instituicao {
     public void setAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
     }
+
+
+    //TODO:Trabalhar nesse metodo para cadastrar um aluno.
+    public void cadastraAluno(Aluno aluno){
+
+    }
+
+
+    
 }
